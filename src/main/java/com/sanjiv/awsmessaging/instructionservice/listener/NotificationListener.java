@@ -6,6 +6,7 @@ import com.sanjiv.awsmessaging.instructionservice.common.MessageHelper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cloud.aws.messaging.listener.annotation.SqsListener;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
@@ -23,6 +24,7 @@ public class NotificationListener{
     private String sqsURL;
 
     @Scheduled(fixedRate = 1000)
+    @SqsListener("MySQSQueue")
     public void getMessage() {
         final AmazonSQS sqs = MessageHelper.createAmazonSQS();
         while(true) {
