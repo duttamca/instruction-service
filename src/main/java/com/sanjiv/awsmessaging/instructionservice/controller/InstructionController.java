@@ -38,12 +38,16 @@ public class InstructionController {
         this.instructionService = instructionService;
     }
 
-    @RequestMapping(value = "/sendMessageQueue", method = RequestMethod.POST)
+    @PostMapping("/sendMessageQueue")
     public @ResponseBody
     void write(@RequestBody String notificationData){
         LOGGER.info("START PROCESSING THE MESSAGE");
         getInstructionService().processMessage(notificationData);
         //this is a hack, need to find neater solution TODO
         getNotificationListener().getMessage();
+    }
+    @GetMapping("/hello")
+    public String sayHello() {
+        return "hello world!!!";
     }
 }
